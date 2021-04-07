@@ -1,0 +1,16 @@
+{
+    "name": "bogdan/add-on-plugin",
+    "description": "plugin",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Bogdan",
+            "email": "sbogdan37@yahoo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {"Book\\": "./include"}
+    }
+}
