@@ -1,36 +1,49 @@
 <?php
 
 /**
- * Plugin Name: plug
+ * Plugin Name: plug                                                    a=5,b=7
  * Description: Just a plugin
  */
 function recent_posts_function($atts)
 {
+    extract(shortcode_atts(array('id' => 3), $atts));
     global $wpdb;
-    $wpdb->get_results("SELECT * FROM {$wpdb->prefix}options WHERE option_id = 1", OBJECT);
-     var_export();
+    $post=$wpdb->get_results("SELECT * FROM $wpdb->postView", OBJECT);
+    //$post=get_post(1);
+    var_dump($post);
+    $return_string = '<table><tr>
+            <th>ID</th>
+            <th>Title of the post</th>
+            <th>Name of the post</th>
+            </tr>';
+    foreach($post as $print)
+    {
+        $return_string.='<tr><td>'.$print->ID.'</td><td>'.$print->post_title.'</td><td>'.$print->post_name.'</td></tr>';
+    }
+    $return_string .= '</table>';
+    return $return_string;
 }
 
 
-/*function recent_posts_function($atts){
-    extract(shortcode_atts(array(
-        'posts' => 1,
-    ), $atts));
+//function recent_posts_function($atts){
+//    extract(shortcode_atts(array(
+//        'posts' => 5,
+//    ), $atts));
+//
+//    $return_string = '<table><tr><th>Titles</th></tr>';
+//    query_posts(array('orderby' => 'date', 'order' => 'DESC' , 'showposts' => $posts));
+//    if (have_posts()) :
+//        while (have_posts()) : the_post();
+//            $return_string .= '<tr><td><a href="'.get_permalink().'">'.get_the_title().'</a></td></tr>';
+//        endwhile;
+//    endif;
+//    $return_string .= '</table>';
+//
+//    wp_reset_query();
+//    return $return_string;
+//}
 
-    $return_string = '<table><tr><th>Titles</th></tr>';
-    query_posts(array('orderby' => 'date', 'order' => 'DESC' , 'showposts' => $posts));
-    if (have_posts()) :
-        while (have_posts()) : the_post();
-            $return_string .= '<tr><td text-align:center><a href="'.get_permalink().'">'.get_the_title().'</a></td></tr>';
-        endwhile;
-    endif;
-    $return_string .= '</table>';
-
-    wp_reset_query();
-    return $return_string;
-}*/
-
-add_shortcode("posts",'recent_posts_function');
+add_shortcode("number",'recent_posts_function');
 
 
 
