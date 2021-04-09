@@ -6,14 +6,14 @@
  */
 function recent_posts_function($atts)
 {
+    $id=null;
     extract(shortcode_atts(array('id' => 3), $atts));
 
     global $wpdb;
 
     //$posts=$wpdb->get_results($wpdb->prepare("SELECT ID,post_title, post_name FROM $wpdb->posts WHERE id=$id", OBJECT));
 
-    $post = $wpdb->get_results("SELECT ID, post_title, post_status FROM `postview` WHERE id = $id", OBJECT);
-
+    $post = $wpdb->get_results("SELECT `ID`, `post_title`, `post_name` FROM `postView` WHERE ID =$id", OBJECT);
     $return_string =
            '<table><tr>
             <th>ID</th>
@@ -26,7 +26,7 @@ function recent_posts_function($atts)
             "<tr>
              <td>$print->ID</td>
              <td>$print->post_title</td>
-             <td>$print->post_status</td>
+             <td>$print->post_name</td>
              </tr>";
     }
     $return_string .= '</table>';
